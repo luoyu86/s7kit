@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 2×2 紧凑: 上=当前体重, 下=较昨日增减+迷你曲线 (设计稿左) -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widgetRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.35"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="@drawable/widget_card_light">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/widget_label_weight"
+            android:textSize="12sp"
+            android:textColor="#272729" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="bottom|center_horizontal">
+
+            <TextView
+                android:id="@+id/wWeight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="--.-"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                android:textColor="#16211F" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:layout_marginBottom="4dp"
+                android:text="kg"
+                android:textSize="12sp"
+                android:textColor="#5A6B66" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="4dp"
+        android:orientation="vertical"
+        android:background="@drawable/widget_card_light"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp">
+
+        <TextView
+            android:id="@+id/wDelta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="暂无称重"
+            android:textSize="11sp"
+            android:textColor="#35B895" />
+
+        <ImageView
+            android:id="@+id/wSpark"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter" />
+    </LinearLayout>
+</LinearLayout>

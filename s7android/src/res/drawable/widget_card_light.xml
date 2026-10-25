@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 小组件卡片底(设计稿: 近白微mint + 细描边, 16dp 圆角) -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <solid android:color="#FBFDFC" />
+    <stroke android:width="1dp" android:color="#E7EFEB" />
+    <corners android:radius="16dp" />
+</shape>

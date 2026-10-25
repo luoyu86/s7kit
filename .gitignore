@@ -1,0 +1,12 @@
+# 本地运行产生的个人数据与日志(不上传)
+*.log
+measurements.jsonl
+__pycache__/
+.zcode/
+
+# Android SDK(构建时自动下载, 259MB)与构建产物
+s7android/sdk/
+s7android/build/
+
+# Java 编译产物
+*.class
