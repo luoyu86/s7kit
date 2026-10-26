@@ -1,86 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 4×4 完整: 目标环+当前体重 | 本周均值+BMI | 30天曲线 (设计稿右) -->
+<!-- 4×4 完整: 左=目标环(环内当前值+目标) | 右=本周均值/BMI 分隔行 + 30天曲线 (总览板 4×4 918×918) -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/widgetRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:background="@drawable/widget_card_light"
-    android:paddingLeft="14dp"
-    android:paddingRight="14dp"
-    android:paddingTop="10dp"
-    android:paddingBottom="8dp">
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="14dp"
+    android:paddingBottom="12dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
 
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1.15">
+        <ImageView
+            android:id="@+id/wRing"
+            android:layout_width="156dp"
+            android:layout_height="156dp"
+            android:layout_gravity="center"
+            android:scaleType="fitCenter" />
 
-            <ImageView
-                android:id="@+id/wRing"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_gravity="center"
-                android:scaleType="fitCenter" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:gravity="center">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="vertical"
-                android:gravity="center">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/widget_goal"
-                    android:textSize="10sp"
-                    android:textColor="#5A6B66" />
-
-                <TextView
-                    android:id="@+id/wGoal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="60.0 kg"
-                    android:textSize="11sp"
-                    android:textColor="#35B895" />
+                android:orientation="horizontal"
+                android:gravity="bottom">
 
                 <TextView
                     android:id="@+id/wWeight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="--.-"
-                    android:textSize="26sp"
+                    android:textSize="24sp"
                     android:textStyle="bold"
-                    android:textColor="#16211F" />
+                    android:textColor="#17211E" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginBottom="3dp"
                     android:text="kg"
                     android:textSize="11sp"
-                    android:textColor="#5A6B66" />
+                    android:textColor="#7A8A85" />
             </LinearLayout>
-        </FrameLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center_vertical"
-            android:paddingLeft="14dp">
 
             <TextView
+                android:id="@+id/wGoal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="目标 60.0 kg"
+                android:textSize="10sp"
+                android:textColor="#7A8A85" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1.15"
+        android:orientation="vertical"
+        android:paddingLeft="14dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="@string/widget_week_mean"
-                android:textSize="12sp"
+                android:textSize="13sp"
                 android:textColor="#5A6B66" />
 
             <TextView
@@ -88,16 +92,30 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="--.-"
-                android:textSize="24sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
-                android:textColor="#16211F" />
+                android:textColor="#17211E" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:background="#E5EEE9" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_weight="1"
                 android:text="@string/widget_bmi"
-                android:textSize="12sp"
+                android:textSize="13sp"
                 android:textColor="#5A6B66" />
 
             <TextView
@@ -105,22 +123,36 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="--.-"
-                android:textSize="24sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
-                android:textColor="#16211F" />
+                android:textColor="#17211E" />
         </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="12dp"
+            android:background="#E5EEE9" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:id="@+id/wChart30"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.1"
+            android:scaleType="fitCenter" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:gravity="right"
+            android:text="@string/widget_title_30d"
+            android:textSize="10sp"
+            android:textColor="#8FA09A" />
     </LinearLayout>
-
-    <!-- 弹性空隙: 图表钉在卡片底部(设计稿布局) -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
-
-    <ImageView
-        android:id="@+id/wChart30"
-        android:layout_width="match_parent"
-        android:layout_height="105dp"
-        android:layout_marginTop="6dp"
-        android:scaleType="fitCenter" />
 </LinearLayout>

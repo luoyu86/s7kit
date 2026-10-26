@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 2×1 胶囊: 秤图标 + 当前体重 | 右侧增减 (四尺寸规格总览板 2×1 412×206) -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widgetRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:background="@drawable/widget_card_capsule"
+    android:paddingLeft="14dp"
+    android:paddingRight="18dp"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp">
+
+    <ImageView
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:background="@drawable/widget_icon_chip"
+        android:padding="6dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_scale" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="bottom"
+        android:layout_marginLeft="12dp">
+
+        <TextView
+            android:id="@+id/wWeight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="--.-"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:textColor="#17211E" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:layout_marginBottom="3dp"
+            android:text="kg"
+            android:textSize="11sp"
+            android:textColor="#7A8A85" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <TextView
+        android:id="@+id/wDelta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="—"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:textColor="#35B895" />
+</LinearLayout>

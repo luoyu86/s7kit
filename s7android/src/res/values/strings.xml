@@ -14,11 +14,13 @@
     <string name="provision_hint_pwd">WiFi密码</string>
     <string name="provision_start">开始配网</string>
     <string name="widget_desc">S7最新体重</string>
+    <string name="widget_desc_strip">最新体重+增减(胶囊条)</string>
     <string name="widget_desc_compact">当前体重+较昨日增减</string>
     <string name="widget_desc_trend">近7天体重趋势</string>
     <string name="widget_desc_full">目标环/周均值/BMI/30天趋势</string>
     <string name="widget_label_weight">体重</string>
     <string name="widget_title_7d">近7天</string>
+    <string name="widget_title_30d">30 天</string>
     <string name="widget_goal">目标</string>
     <string name="widget_week_mean">本周均值</string>
     <string name="widget_bmi">BMI</string>

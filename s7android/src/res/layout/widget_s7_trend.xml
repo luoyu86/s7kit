@@ -1,37 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 4×2 趋势: 近7天面积图 + 末值 + 持续下降徽章 (设计稿中) -->
+<!-- 4×2 趋势: 左=当前体重+较昨日 | 右=近7天胶囊+面积图 (总览板 4×2 918×412) -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/widgetRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
     android:background="@drawable/widget_card_light"
-    android:paddingLeft="14dp"
-    android:paddingRight="14dp"
-    android:paddingTop="10dp"
-    android:paddingBottom="8dp">
+    android:paddingLeft="16dp"
+    android:paddingRight="12dp"
+    android:paddingTop="12dp"
+    android:paddingBottom="12dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/widget_title_7d"
-        android:textSize="13sp"
-        android:textStyle="bold"
-        android:textColor="#16211F" />
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.42"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:paddingLeft="4dp">
 
-    <ImageView
-        android:id="@+id/wChart"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:scaleType="fitCenter" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="bottom">
 
-    <TextView
-        android:id="@+id/wBadge"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="right"
-        android:text="● 暂无数据"
-        android:textSize="11sp"
-        android:textColor="#35B895" />
+            <TextView
+                android:id="@+id/wWeight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="--.-"
+                android:textSize="38sp"
+                android:textStyle="bold"
+                android:textColor="#17211E" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:layout_marginBottom="5dp"
+                android:text="kg"
+                android:textSize="13sp"
+                android:textColor="#7A8A85" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/wDelta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="暂无称重"
+            android:textSize="13sp"
+            android:textColor="#35B895" />
+    </LinearLayout>
+
+    <!-- 竖分隔线(总览板左文右图之间) -->
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:background="#E5EEE9" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.58"
+        android:orientation="vertical"
+        android:background="@drawable/widget_chart_panel">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/widget_chip"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:text="@string/widget_title_7d"
+            android:textSize="10sp"
+            android:textColor="#5A6B66" />
+
+        <ImageView
+            android:id="@+id/wChart"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:scaleType="fitCenter" />
+    </LinearLayout>
 </LinearLayout>

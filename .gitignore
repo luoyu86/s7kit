@@ -10,3 +10,7 @@ s7android/build/
 
 # Java 编译产物
 *.class
+
+# WorkBuddy 本地工作数据(记忆/日志, 不上传)
+.workbuddy/
+.DS_Store
