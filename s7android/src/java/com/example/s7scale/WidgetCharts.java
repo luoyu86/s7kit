@@ -82,13 +82,13 @@ public final class WidgetCharts {
         area.close();
         Paint ap = new Paint(Paint.ANTI_ALIAS_FLAG);
         ap.setShader(new LinearGradient(0, plot.top, 0, plot.bottom,
-                0xCC9FDFCE, 0x109FDFCE, Shader.TileMode.CLAMP));
+                0xB3BFE7D6, 0x0CBFE7D6, Shader.TileMode.CLAMP));
         cv.drawPath(area, ap);
 
         Paint lp = new Paint(Paint.ANTI_ALIAS_FLAG);
         lp.setColor(MINT);
         lp.setStyle(Paint.Style.STROKE);
-        lp.setStrokeWidth(Math.max(2.5f, h / 26f));
+        lp.setStrokeWidth(Math.max(2.5f, h / 55f));
         lp.setStrokeCap(Paint.Cap.ROUND);
         cv.drawPath(line, lp);
 
@@ -120,6 +120,58 @@ public final class WidgetCharts {
             ty = Math.min(ty, h - tp.getTextSize() * 0.12f);
             cv.drawText(endLabel, tx, ty, tp);
         }
+        return bmp;
+    }
+
+    /**
+     * 2×2 迷你锯齿曲线(总览板): 折线不平滑 + 极淡填充 + 贯穿淡基准线。
+     */
+    public static Bitmap sparkline(float[] weights, int w, int h) {
+        Bitmap bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Canvas cv = new Canvas(bmp);
+        cv.setDensity(0);
+        if (weights == null || weights.length == 0) return bmp;
+
+        float padL = w * 0.02f, padR = w * 0.02f;
+        float plotT = h * 0.20f, baseY = h * 0.80f;
+
+        // 贯穿淡基准线
+        Paint base = new Paint(Paint.ANTI_ALIAS_FLAG);
+        base.setColor(0x2235B895);
+        base.setStrokeWidth(Math.max(1.2f, h / 70f));
+        cv.drawLine(padL, baseY, w - padR, baseY, base);
+
+        int n = weights.length;
+        float min = Float.MAX_VALUE, max = -Float.MAX_VALUE;
+        for (float v : weights) { min = Math.min(min, v); max = Math.max(max, v); }
+        if (max - min < 0.8f) { float mid = (max + min) / 2f; min = mid - 0.4f; max = mid + 0.4f; }
+        float[] xs = new float[n], ys = new float[n];
+        for (int i = 0; i < n; i++) {
+            xs[i] = n == 1 ? w / 2f : padL + (w - padL - padR) * i / (n - 1);
+            ys[i] = baseY - (baseY - plotT) * (weights[i] - min) / (max - min);
+        }
+
+        // 锯齿折线(不平滑)
+        Path line = new Path();
+        line.moveTo(xs[0], ys[0]);
+        for (int i = 1; i < n; i++) line.lineTo(xs[i], ys[i]);
+
+        Path area = new Path(line);
+        area.lineTo(xs[n - 1], baseY);
+        area.lineTo(xs[0], baseY);
+        area.close();
+        Paint ap = new Paint(Paint.ANTI_ALIAS_FLAG);
+        ap.setShader(new LinearGradient(0, plotT, 0, baseY,
+                0x66BFE7D6, 0x08BFE7D6, Shader.TileMode.CLAMP));
+        cv.drawPath(area, ap);
+
+        Paint lp = new Paint(Paint.ANTI_ALIAS_FLAG);
+        lp.setColor(MINT);
+        lp.setStyle(Paint.Style.STROKE);
+        lp.setStrokeWidth(Math.max(2f, h / 38f));
+        lp.setStrokeCap(Paint.Cap.ROUND);
+        lp.setStrokeJoin(Paint.Join.ROUND);
+        cv.drawPath(line, lp);
         return bmp;
     }
 
