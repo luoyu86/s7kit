@@ -97,7 +97,8 @@
                 android:textColor="#17211E" />
         </LinearLayout>
 
-        <View
+        <!-- RemoteViews 不支持裸 View, 横分隔条用空 TextView 代替 -->
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="12dp"
@@ -128,7 +129,7 @@
                 android:textColor="#17211E" />
         </LinearLayout>
 
-        <View
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="12dp"

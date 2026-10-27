@@ -55,8 +55,8 @@
             android:textColor="#35B895" />
     </LinearLayout>
 
-    <!-- 竖分隔线(总览板左文右图之间) -->
-    <View
+    <!-- 竖分隔线(总览板左文右图之间); RemoteViews 不支持裸 View, 用空 TextView 代替 -->
+    <TextView
         android:layout_width="1dp"
         android:layout_height="match_parent"
         android:layout_marginLeft="12dp"

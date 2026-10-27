@@ -261,6 +261,8 @@ public final class S7Protocol {
         public String mac;               // 帧[12:18) 秽WiFi MAC "aa:bb:cc:dd:ee:ff" (=deviceId)
         public String timeLocalIso;      // 手机本地接收时间 (handle_conn 补充的 time_local)
         public long timeLocalMs;         // 手机本地接收时间 epoch ms (小组件格式化用)
+        /** 认领状态(APP层扩展字段, 非协议字段): "pending"=待认领 / "claimed"=已认领(计入个人数据与趋势图) */
+        public String status;
     }
 
     /**

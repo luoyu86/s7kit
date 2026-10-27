@@ -101,7 +101,7 @@ public class S7WidgetProvider extends AppWidgetProvider {
         applyDelta(rv, ctx, R.id.wDelta, last, prev);
 
         float[] w = toWeights(MeasureStore.readRecent(ctx, 24));
-        rv.setImageViewBitmap(R.id.wSpark, WidgetCharts.sparkline(w, 480, 150));
+        rv.setImageViewBitmap(R.id.wSpark, WidgetCharts.sparkline(w, 420, 130));
     }
 
     // ------------------------------------------------------------ 4×2 趋势
@@ -110,7 +110,8 @@ public class S7WidgetProvider extends AppWidgetProvider {
                                   S7Protocol.Measure last, S7Protocol.Measure prev) {
         float[] w = seriesWeights(MeasureStore.dailySeries(ctx, 7));
         if (w.length < 2) w = toWeights(MeasureStore.readRecent(ctx, 7));
-        rv.setImageViewBitmap(R.id.wChart, WidgetCharts.trendChart(w, 660, 460, false, null, true));
+        // 位图须远低于 Binder 1MB 事务上限(RemoteViews 整包), 否则桌面显示"载入窗口小部件时出现问题"
+        rv.setImageViewBitmap(R.id.wChart, WidgetCharts.trendChart(w, 420, 293, false, null, true));
         if (last == null) {
             rv.setTextViewText(R.id.wWeight, "--.-");
             rv.setTextViewText(R.id.wDelta, "暂无称重");
@@ -133,16 +134,16 @@ public class S7WidgetProvider extends AppWidgetProvider {
             rv.setTextViewText(R.id.wWeight, "--.-");
             rv.setTextViewText(R.id.wWeekMean, "--.-");
             rv.setTextViewText(R.id.wBmi, "--.-");
-            rv.setImageViewBitmap(R.id.wRing, WidgetCharts.goalRing(1f, 420));
+            rv.setImageViewBitmap(R.id.wRing, WidgetCharts.goalRing(1f, 280));
             rv.setImageViewBitmap(R.id.wChart30,
-                    WidgetCharts.trendChart(new float[0], 620, 260, false, null, true));
+                    WidgetCharts.trendChart(new float[0], 420, 176, false, null, true));
             return;
         }
         rv.setTextViewText(R.id.wWeight, String.format(Locale.US, "%.1f", last.weightKg));
 
         // 圆环: 达到目标=满环, 未达标按 目标/当前 比例
         float frac = last.weightKg <= targetKg ? 1f : (float) (targetKg / last.weightKg);
-        rv.setImageViewBitmap(R.id.wRing, WidgetCharts.goalRing(frac, 420));
+        rv.setImageViewBitmap(R.id.wRing, WidgetCharts.goalRing(frac, 280));
 
         double mean = MeasureStore.weekMean(ctx);
         rv.setTextViewText(R.id.wWeekMean,
@@ -154,7 +155,7 @@ public class S7WidgetProvider extends AppWidgetProvider {
 
         float[] w30 = seriesWeights(MeasureStore.dailySeries(ctx, 30));
         if (w30.length < 2) w30 = toWeights(MeasureStore.readRecent(ctx, 30));
-        rv.setImageViewBitmap(R.id.wChart30, WidgetCharts.trendChart(w30, 620, 260, false, null, true));
+        rv.setImageViewBitmap(R.id.wChart30, WidgetCharts.trendChart(w30, 420, 176, false, null, true));
     }
 
     // ------------------------------------------------------------ 工具

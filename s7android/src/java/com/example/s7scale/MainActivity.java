@@ -135,11 +135,15 @@ public class MainActivity extends Activity {
         StringBuilder sb = new StringBuilder();
         sb.append(run ? "服务运行中 · 监听 0.0.0.0:" + S7Service.PORT_S7
                       : "服务未运行");
-        S7Protocol.Measure m = MeasureStore.last(this);
+        S7Protocol.Measure m = MeasureStore.last(this);   // 已认领的最新一条
         if (m != null) {
             sb.append("\n最新: ").append(String.format(Locale.US, "%.2f kg", m.weightKg))
               .append(" · ").append(MeasureStore.dispTime(m))
               .append("\n设备: ").append(m.mac);
+        }
+        int pending = MeasureStore.pendingCount(this);
+        if (pending > 0) {
+            sb.append("\n⚠ 有 ").append(pending).append(" 条待认领 —— 点「历史/认领记录」确认");
         }
         tvStatus.setText(sb.toString());
     }

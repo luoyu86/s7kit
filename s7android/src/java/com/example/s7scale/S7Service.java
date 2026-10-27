@@ -133,17 +133,25 @@ public static volatile long lastScaleConnAt = 0L;
 
     private Notification buildNotification() {
         S7Protocol.Measure m = last;
+        int pending = MeasureStore.pendingCount(this);
         String text;
         if (m != null) {
-            text = String.format(Locale.US, "最新 %.2f kg · %s · 监听 :%d",
-                    m.weightKg, MeasureStore.dispTime(m), PORT_S7);
+            text = String.format(Locale.US, "最新 %.2f kg · %s%s · 监听 :%d",
+                    m.weightKg, MeasureStore.dispTime(m),
+                    pending > 0 ? " · 待认领" + pending + "条" : "", PORT_S7);
         } else {
             text = "等待秤连接 TCP 0.0.0.0:" + PORT_S7 + "(休眠功耗≈0)";
         }
+        // 点通知进历史/认领页处理待认领数据
+        Intent it = new Intent(this, HistoryActivity.class);
+        it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        android.app.PendingIntent pi = android.app.PendingIntent.getActivity(this, 0, it,
+                android.app.PendingIntent.FLAG_UPDATE_CURRENT | android.app.PendingIntent.FLAG_IMMUTABLE);
         Notification.Builder b = new Notification.Builder(this, CH_ID)
                 .setSmallIcon(R.drawable.ic_stat)
                 .setContentTitle(getString(R.string.notif_title))
                 .setContentText(text)
+                .setContentIntent(pi)
                 .setOngoing(true)
                 .setOnlyAlertOnce(true);
         return b.build();
@@ -259,11 +267,11 @@ public static volatile long lastScaleConnAt = 0L;
     }
 
     private void onMeasure(S7Protocol.Measure m) {
-        S7Protocol.Measure prev = MeasureStore.last(this);
-        MeasureStore.append(this, m);
+        MeasureStore.append(this, m);   // 以"待认领"落盘, 不直接进个人数据
         last = m;
         lastSeen = m.timeLocalIso;
-        S7WidgetProvider.pushUpdate(this, m, prev);  // 收到数据直接推送小组件刷新, 无定时轮询
+        // 小组件/趋势图只显示已认领数据 —— 待认领数据不推送, 误踩称不影响趋势
+        S7WidgetProvider.pushUpdate(this, MeasureStore.last(this), MeasureStore.prev(this));
         refreshNotification();
     }
 
@@ -362,11 +370,13 @@ public static volatile long lastScaleConnAt = 0L;
         out.flush();
     }
 
-    /** /widget 一行文本, 与Python格式一致: "63.5 kg · 10-25 15:04" 或 "暂无称重" */
+    /** /widget 一行文本: 已认领口径 "63.5 kg · 10-25 15:04"; 有待认领追加提示 */
     private String widgetText() {
-        S7Protocol.Measure m = last;
-        if (m == null) return "暂无称重";
-        return String.format(Locale.US, "%.1f kg · %s", m.weightKg, MeasureStore.dispTime(m));
+        S7Protocol.Measure m = MeasureStore.last(this);   // 已认领的最新一条
+        int pending = MeasureStore.pendingCount(this);
+        if (m == null) return pending > 0 ? "待认领 " + pending + " 条" : "暂无称重";
+        String s = String.format(Locale.US, "%.1f kg · %s", m.weightKg, MeasureStore.dispTime(m));
+        return pending > 0 ? s + " · 待认领" + pending + "条" : s;
     }
 
     private String statusJson() {

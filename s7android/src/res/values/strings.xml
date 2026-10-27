@@ -6,7 +6,7 @@
     <string name="btn_start">启动数据服务</string>
     <string name="btn_stop">停止数据服务</string>
     <string name="btn_battery">允许后台运行(省电白名单)</string>
-    <string name="btn_history">查看历史记录</string>
+    <string name="btn_history">查看历史 / 认领记录</string>
     <string name="btn_provision">给秤配网(下发本机IP)</string>
     <string name="provision_title">给秤配网</string>
     <string name="provision_steps">1. 填 WiFi 名和密码(默认当前WiFi, 2.4G)\n2. 站上秤, 短按电池盖里的重置键\n3. 点开始配网, 秤会自动连上本机:8899</string>
@@ -26,4 +26,5 @@
     <string name="widget_bmi">BMI</string>
     <string name="btn_settings">身高/目标设置(BMI)</string>
     <string name="history_title">称重历史(最近50条)</string>
+    <string name="btn_claim_all">全部认领(确认都是我的)</string>
 </resources>
